@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.library'
+}
+
+// 无关的公共UI模块
+
+android {
+    compileSdkVersion sdkVersion.compileSdk
+    buildToolsVersion sdkVersion.buildTools
+
+    defaultConfig {
+        minSdkVersion sdkVersion.minSdk
+        targetSdkVersion sdkVersion.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation supportLib['lifecycle-viewmodel']
+    implementation supportLib['lifecycle-livedata']
+    implementation supportLib['lifecycle-viewmodel-savedstate']
+    implementation supportLib['lifecycle-common-java8']
+    implementation supportLib['lifecycle-process']
+    annotationProcessor supportLib['lifecycle-compiler']
+    // Android组件库
+    implementation supportLib['recyclerview']
+    implementation supportLib['appcompat']
+    implementation supportLib['constraint']
+    // 测试依赖
+    testImplementation testLib['junit']
+    androidTestImplementation androidTestLib['test-core']
+    androidTestImplementation androidTestLib['test-runner']
+    androidTestImplementation androidTestLib['test-rules']
+    androidTestImplementation androidTestLib['espresso-core']
+}

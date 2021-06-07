@@ -1,0 +1,91 @@
+/*
+ * 提供项目常用配置模板，按需调整
+ */
+plugins {
+    id 'com.android.application'
+}
+
+// 壳工程
+
+android {
+    compileSdkVersion sdkVersion.compileSdk
+    buildToolsVersion sdkVersion.buildTools
+
+    defaultConfig {
+        applicationId "com.noboauto.demoapp"
+        minSdkVersion sdkVersion.minSdk
+        targetSdkVersion sdkVersion.targetSdk
+        versionCode APK_VERSION_CODE as int
+        versionName APK_VERSION_NAME
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+//    签名文件配置，当需要使用keystore文件签名时配置此项
+//    signingConfigs {
+//        release {
+//            storeFile file("myreleasekey.keystore")
+//            storePassword "password"
+//            keyAlias "alias"
+//            keyPassword "password"
+//        }
+//    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled false
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true // 使用DataBinding后，主module和相关子module都需要启用此feature
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        // 发版配置 发布到正式项目的配置
+        master {
+
+        }
+        // 开发配置
+        dev {
+
+        }
+        // 演示配置 对于需要硬件依赖的功能，提供mock实现，使应用可以演示运行
+        demo {
+
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // 打包名设置
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = APK_PACKAGE_NAME + ".apk"
+        }
+    }
+}
+
+dependencies {
+    // 依赖配置 @see https://developer.android.google.cn/studio/build/build-variants.html#filter-variants
+    masterImplementation project(path: ':app:app')
+    devImplementation project(path: ':app:app')
+    demoImplementation project(path: ':app:app')
+}

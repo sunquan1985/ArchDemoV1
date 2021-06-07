@@ -1,0 +1,73 @@
+plugins {
+    id 'com.android.library'
+}
+
+// 应用UI和交互基础实现
+
+android {
+    compileSdkVersion sdkVersion.compileSdk
+    buildToolsVersion sdkVersion.buildTools
+
+    defaultConfig {
+        minSdkVersion sdkVersion.minSdk
+        targetSdkVersion sdkVersion.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    api project(path: ':app:business')
+    api project(path: ':app:data_from_gank')
+    api project(path: ':app:data')
+    api project(path: ':app:domain')
+    api project(path: ':lib:common')
+    api project(path: ':lib:common_ui')
+    // Android组件库
+    api supportLib['appcompat']
+    api supportLib['constraint']
+    api supportLib['recyclerview']
+    // Jetpack
+    api supportLib['navigation-fragment']
+    api supportLib['navigation-ui']
+    api supportLib['lifecycle-viewmodel']
+    api supportLib['lifecycle-livedata']
+    api supportLib['lifecycle-viewmodel-savedstate']
+    api supportLib['lifecycle-common-java8']
+    api supportLib['lifecycle-process']
+    annotationProcessor supportLib['lifecycle-compiler']
+    // 三方库
+    api dependLib['glide']
+    api dependLib['glide-processor']
+    api dependLib['rxjava-android']
+    api dependLib['rxbinding']
+    // 测试依赖
+    testImplementation testLib['junit']
+    androidTestImplementation androidTestLib['test-core']
+    androidTestImplementation androidTestLib['test-runner']
+    androidTestImplementation androidTestLib['test-rules']
+    androidTestImplementation androidTestLib['espresso-core']
+}

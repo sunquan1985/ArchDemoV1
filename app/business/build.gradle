@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.library'
+}
+
+// 业务逻辑模块
+
+android {
+    compileSdkVersion sdkVersion.compileSdk
+    buildToolsVersion sdkVersion.buildTools
+
+    defaultConfig {
+        minSdkVersion sdkVersion.minSdk
+        targetSdkVersion sdkVersion.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // 模块依赖
+    implementation project(path: ':app:data')
+    implementation project(path: ':app:domain')
+    implementation project(path: ':lib:common')
+    // 三方库
+    implementation dependLib['rxjava']
+    implementation dependLib['rxjava-android']
+    // 测试依赖
+    testImplementation testLib['junit']
+}

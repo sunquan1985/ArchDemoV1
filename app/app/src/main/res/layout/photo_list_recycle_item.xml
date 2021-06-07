@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="eventListener"
+            type="com.noboauto.common.event.UiEventListener" />
+        <variable
+            name="photo"
+            type="com.noboauto.demoapp.domain.Article" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/photo_item_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> eventListener.onClick(photo)}">
+
+        <ImageView
+            android:id="@+id/iv_photo_img"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:imgUrl="@{photo.url}"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_photo_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="3dp"
+            android:background="#94FFFFFF"
+            android:textColor="#000000"
+            android:text="@{photo.desc}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_photo_img"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

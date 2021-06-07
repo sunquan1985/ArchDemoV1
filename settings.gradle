@@ -1,0 +1,9 @@
+include ':app_box'
+include ':app:app'
+include ':app:data_from_gank'
+include ':app:business'
+include ':app:data'
+include ':app:domain'
+include ':lib:common_ui' // UI公共依赖
+include ':lib:common' // 公共依赖
+rootProject.name = "NoboDemoApp"
